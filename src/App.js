@@ -1,0 +1,63 @@
+
+import './App.css';
+import { useEffect } from 'react';
+import SideNavBar from './components/SideNavBar'
+import TopHeaderBar from './components/TopHeaderBar'
+import DeshboardFeeEntry from './components/Page1_deshboard/DeshboardFeeEntry'
+import TopBtns from './components/TopBtns'
+import AddStudent from './components/Page2_AddStudent/AddStudent';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+function App() {
+  //get data from server
+async function get_student_data() {
+  const url = "https://script.google.com/macros/s/AKfycbyQYPanEzA02zR0x5-T6BefsmQcN-EIZNCXvYG1nCWt6Iu4wi82yLnyqJJWYrOqyFb9/exec";
+
+  try {
+    const response = await fetch(url, { method: "GET" });
+    const data = await response.json();
+    console.log("GET Response:", data);
+    // document.getElementById("app").textContent = JSON.stringify(data[0].data[0].name);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+
+// now useEffect to call get)student)data function
+useEffect(() => { get_student_data(); }, []);
+
+  return (
+    <>
+    <Router>
+      <div className="min-h-screen flex">
+        <div className="collapse lg:visible ">
+          {/* <!-- side nevigation bar --> */}
+          <SideNavBar />
+        </div>
+        <div className="flex-1  lg:ml-64">
+          {/* <!-- header of the web page --> */}
+          <TopHeaderBar />
+
+          {/* <!-- main content of the web page -->    */}
+          <main className="p-6">
+            
+            {/* <!-- creating buttons for add new student, record payment, generate receipt and search student --> */}
+            <TopBtns />
+ 
+              <Routes>
+                {/* //adding deshboard component with free entry as default page */}
+                <Route path="/" element={<DeshboardFeeEntry />} />
+                {/* //adding add new student page  */}
+                <Route path="/add-student" element={<AddStudent />} />
+              </Routes>
+           
+          </main>
+        </div>
+      </div>
+
+      </Router>
+    </>
+  );
+}
+
+export default App;
