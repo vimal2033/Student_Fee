@@ -2,7 +2,7 @@ import React from 'react'
 import FeeEntryCardDeshboard from './FeeEntryCardDeshboard'
 import StudentDetailsDeshboard from './StudentDetailsDeshboard'
 
-const DeshboardFeeEntry = () => {
+const DeshboardFeeEntry = (props) => {
   return (
    <>
 

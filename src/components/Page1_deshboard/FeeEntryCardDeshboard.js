@@ -1,23 +1,48 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 
-const FeeEntryCardDeshboard = () => {
+const FeeEntryCardDeshboard = (props) => {
 
-  async function submit_Payment(){
-    const url = "https://script.google.com/macros/s/AKfycbyQYPanEzA02zR0x5-T6BefsmQcN-EIZNCXvYG1nCWt6Iu4wi82yLnyqJJWYrOqyFb9/exec";
+function setToday(){
+   // set default date to today
+   const today = new Date();
+   const year = today.getFullYear();
+   let month = today.getMonth() + 1;
+   let day = today.getDate();
+   // Ensure two digits for month and day
+   if (month < 10) { month = '0' + month; }
+   if (day < 10) { day = '0' + day; }
+   const formattedDate = `${year}-${month}-${day}`; // Use YYYY-MM-DD format whicch is dafault for input type date
+   return formattedDate;
+}
+
+const [InputId,setInputId] = useState("1234");
+const [InputName, setInputName] = useState("raju");
+const [InputDate, setInputDate] = useState(setToday());
+const [InputCourse,setInputCourse] = useState("DCA");
+const [inputAmount, setInputAmount] = useState("500");
+
+  useEffect(() => {
+   
+  }, []);
+
+  //submit payment details (removed async await)
+  function submit_Payment(id,name,course,fee,date){
+    const url = "https://script.google.com/macros/s/AKfycbxpzloOf5uY3hrlCiCqFo-OdqwlEDuRzUGYjHQcsJEYhSoa-JPct9voSW8Igjte07a7Kw/exec";
   
-    try {
-      await fetch(url, {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: "raju", number: "99999999" })
-      });
+    fetch(url, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({STUDENT_ID:id, STUDENT_NAME: name, COURSE: course,FEE_RECIVED:fee,DATE:date })
+    })
+    .then(() => {
       console.log("Data sent successfully!");
-    } catch (error) {
+    })
+    .catch(error => {
       console.error("Error:", error);
-    }
+    });
   }
-
+//********************************************************************* 
   return (
     <>
     {/* <!-- fee entry card --> */}
@@ -42,26 +67,25 @@ const FeeEntryCardDeshboard = () => {
                     <label className="block text-sm font-medium text-gray-700 mb-1">Student ID</label>
                     <input type="text"
                       className="!rounded-button w-2/3 border-gray-300 focus:border-custom focus:ring-custom drop-shadow-sm"
-                      placeholder="Enter student ID" />
+                      placeholder="Enter student ID" onChange={(e)=>{setInputId(e.target.value)}}/>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Student Name</label>
                     <input type="text"
                       className="!rounded-button w-full border-gray-300 focus:border-custom focus:ring-custom drop-shadow-sm"
-                      placeholder="Student name"
-                      readOnly />
+                      placeholder="Student name" onChange={(e)=>{setInputName(e.target.value)}} />
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Payment Date</label>
-                    <input type="date"  className="!rounded-button w-full border-gray-300 focus:border-custom focus:ring-custom drop-shadow-sm"/>
+                    <label  className="block text-sm font-medium text-gray-700 mb-1">Payment Date</label>
+                    <input type="date" id="myDate" value={InputDate} onChange={(e) => setInputDate(e.target.value)}  className="!rounded-button w-full border-gray-300 focus:border-custom focus:ring-custom drop-shadow-sm"/>
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1" >Amount</label >
                     <input type="text"
                       className="!rounded-button w-full border-gray-300 focus:border-custom focus:ring-custom drop-shadow-sm"
-                      placeholder="Enter amount"/>
+                      placeholder="Enter amount" onChange={(e)=>{setInputAmount(e.target.value)}}/>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1" >Current Balance</label>
@@ -73,8 +97,8 @@ const FeeEntryCardDeshboard = () => {
                   </div>
                   <div className="mt-6  flex space-x-4">
                     
-                  <button type="submit" className="!rounded-button w-full bg-custom text-white py-2 px-4 font-medium text-sm"
-                   onClick={() => submit_Payment()}>
+                  <button type="button" className="!rounded-button w-full bg-custom text-white py-2 px-4 font-medium text-sm"
+                   onClick={() => submit_Payment(InputId,InputName,InputCourse,inputAmount,InputDate)}>
                     Submit Payment
                   </button>
                   {/* <button type="button" className="!rounded-button  px-4 py-2 border border-gray-300 bg-white text-gray-700 text-sm font-medium" >

@@ -1,6 +1,6 @@
   //get data from server
   async function get_student_data() {
-    const url = "https://script.google.com/macros/s/AKfycbyQYPanEzA02zR0x5-T6BefsmQcN-EIZNCXvYG1nCWt6Iu4wi82yLnyqJJWYrOqyFb9/exec";
+    const url = "https://script.google.com/macros/s/AKfycbxpzloOf5uY3hrlCiCqFo-OdqwlEDuRzUGYjHQcsJEYhSoa-JPct9voSW8Igjte07a7Kw/exec";
   
     try {
       const response = await fetch(url, { method: "GET" });
@@ -13,7 +13,7 @@
   }
   //send data to server
   async function send_student_data() {
-    const url = "https://script.google.com/macros/s/AKfycbyQYPanEzA02zR0x5-T6BefsmQcN-EIZNCXvYG1nCWt6Iu4wi82yLnyqJJWYrOqyFb9/exec";
+    const url = "https://script.google.com/macros/s/AKfycbxpzloOf5uY3hrlCiCqFo-OdqwlEDuRzUGYjHQcsJEYhSoa-JPct9voSW8Igjte07a7Kw/exec";
   
     try {
       await fetch(url, {
