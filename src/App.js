@@ -1,21 +1,38 @@
 
 import './App.css';
-import { useEffect } from 'react';
+import { useEffect,useState } from 'react';
 import SideNavBar from './components/SideNavBar'
 import TopHeaderBar from './components/TopHeaderBar'
-import DeshboardFeeEntry from './components/Page1_deshboard/DeshboardFeeEntry'
+import DashboardFeeEntry from './components/Page1_deshboard/DashboardFeeEntry'
 import TopBtns from './components/TopBtns'
 import AddStudent from './components/Page2_AddStudent/AddStudent';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 function App() {
   //get data from server
-async function get_student_data() {
+  // {studata.length > 0 ? (
+  //   <ul>
+  //     {studata.map((item, index) => (
+  //       <li key={index}>{studata[index].NAME}</li>
+  //     ))}
+  //   </ul>
+  // ) : (
+  //   <p>Loading...</p>
+  // )}
+
+  // const filteredData = studata.filter(item => 
+  //   item.NAME.toLowerCase().includes(filterName.toLowerCase())
+  // );
+
+  const [studata,setstudata]=useState([]);
+  async function get_student_data() {
   const url = "https://script.google.com/macros/s/AKfycbxpzloOf5uY3hrlCiCqFo-OdqwlEDuRzUGYjHQcsJEYhSoa-JPct9voSW8Igjte07a7Kw/exec";
 
   try {
     const response = await fetch(url, { method: "GET" });
     const data = await response.json();
     console.log("GET Response:", data);
+    setstudata(data[0].data);
+  
     // document.getElementById("app").textContent = JSON.stringify(data[0].data[0].name);
   } catch (error) {
     console.error("Error:", error);
@@ -24,11 +41,14 @@ async function get_student_data() {
 
 
 // now useEffect to call get)student)data function
-useEffect(() => { get_student_data(); }, []);
+useEffect(()=> {
+  get_student_data();
+}, []);
 
   return (
     <>
     <Router>
+   
       <div className="min-h-screen flex">
         <div className="collapse lg:visible ">
           {/* <!-- side nevigation bar --> */}
@@ -46,7 +66,7 @@ useEffect(() => { get_student_data(); }, []);
  
               <Routes>
                 {/* //adding deshboard component with free entry as default page */}
-                <Route path="/" element={<DeshboardFeeEntry />} />
+                <Route path="/" element={<DashboardFeeEntry  getdata={studata}/>} />
                 {/* //adding add new student page  */}
                 <Route path="/add-student" element={<AddStudent />} />
               </Routes>
