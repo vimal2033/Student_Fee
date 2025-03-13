@@ -1,16 +1,16 @@
 
 import './App.css';
-import { useEffect,useState } from 'react';
+import { useEffect} from 'react';
 import SideNavBar from './components/SideNavBar'
 import TopHeaderBar from './components/TopHeaderBar'
 import DashboardFeeEntry from './components/Page1_deshboard/DashboardFeeEntry'
 import TopBtns from './components/TopBtns'
 import AddStudent from './components/Page2_AddStudent/AddStudent';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
-import { useMyContext } from './ContextApi/MyContext';
+import { useMyContext } from './global/MyContext';
 function App() {
   
-  const {setstudata}=useMyContext();
+  const {setStudentData}=useMyContext();
   async function get_student_data() {
   const url = "https://script.google.com/macros/s/AKfycbxpzloOf5uY3hrlCiCqFo-OdqwlEDuRzUGYjHQcsJEYhSoa-JPct9voSW8Igjte07a7Kw/exec";
 
@@ -18,7 +18,7 @@ function App() {
     const response = await fetch(url, { method: "GET" });
     const data = await response.json();
     console.log("GET Response:", data);
-    setstudata(data[0].data);
+    setStudentData(data[0].data);
   
     // document.getElementById("app").textContent = JSON.stringify(data[0].data[0].name);
   } catch (error) {
@@ -30,6 +30,7 @@ function App() {
 // now useEffect to call get)student)data function
 useEffect(()=> {
   get_student_data();
+  // eslint-disable-next-line
 }, []);
 
   return (

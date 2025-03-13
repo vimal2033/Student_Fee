@@ -1,26 +1,15 @@
-import React, { useState } from 'react';
-import { useMyContext } from '../../ContextApi/MyContext';
+import React from 'react';
+import { useMyContext } from '../../global/MyContext';
+
 const FeeEntryCardDeshboard = (props) => {
-  function setToday() {
-    // set default date to today
-    const today = new Date();
-    const year = today.getFullYear();
-    let month = today.getMonth() + 1;
-    let day = today.getDate();
-    // Ensure two digits for month and day
-    if (month < 10) { month = '0' + month; }
-    if (day < 10) { day = '0' + day; }
-    const formattedDate = `${year}-${month}-${day}`; // Use YYYY-MM-DD format which is default for input type date
-    return formattedDate;
-  }
-const {studata}=useMyContext();
-  const StudentData =studata;
+ 
+const {StudentData,Input,setInput}=useMyContext();
 
-  const [Input,setInput]= useState({Id:"100",Name:"shyam",Date:setToday(),Course:"PGDCA",Amount:"5000"});
-
+  // Filter data based on name
   const filteredData = StudentData.filter(item =>
     item.NAME.toLowerCase().includes(Input.Name.toLowerCase())
   );
+  
 
   return (
     <>
