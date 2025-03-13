@@ -77,7 +77,7 @@ const FeeEntryCardDeshboard = (props) => {
                   <div className="mt-6  flex space-x-4">
                     
                   <button type="button" className="!rounded-button w-full bg-custom text-white py-2 px-4 font-medium text-sm"
-                   onClick={()=>{props.click(Input.Id,Input.Name,Input.Course,input.Amount,Input.Date)}}>
+                   onClick={()=>{props.click(Input.Id,Input.Name,Input.Course,Input.Amount,Input.Date)}}>
                     Submit Payment
                   </button>
                   {/* <button type="button" className="!rounded-button  px-4 py-2 border border-gray-300 bg-white text-gray-700 text-sm font-medium" >
