@@ -15,16 +15,11 @@ const FeeEntryCardDeshboard = (props) => {
   }
 
   const StudentData = props.getdata;
-  const [InputId, setInputId] = useState("1234");
-  const [InputName, setInputName] = useState("RAJU");
-  const [InputDate, setInputDate] = useState(setToday());
-  const [InputCourse, setInputCourse] = useState("DCA");
-  const [inputAmount, setInputAmount] = useState("500");
 
-  const [Input,setInput]= useState({id:"100",name:"shyam",date:setToday(),course:"PGDCA",amount:"5000"});
+  const [Input,setInput]= useState({Id:"100",Name:"shyam",Date:setToday(),Course:"PGDCA",Amount:"5000"});
 
   const filteredData = StudentData.filter(item =>
-    item.NAME.toLowerCase().includes(InputName.toLowerCase())
+    item.NAME.toLowerCase().includes(Input.Name.toLowerCase())
   );
 
   return (
@@ -51,25 +46,25 @@ const FeeEntryCardDeshboard = (props) => {
                     <label className="block text-sm font-medium text-gray-700 mb-1">Student ID</label>
                     <input type="text"
                       className="!rounded-button w-2/3 border-gray-300 focus:border-custom focus:ring-custom drop-shadow-sm"
-                      placeholder="Enter student ID" onChange={(e)=>{setInputId(e.target.value)}}/>
+                      placeholder="Enter student ID" onChange={(e)=>{setInput(prevState => ({...prevState,Id: e.target.value }));}}/>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Student Name</label>
                     <input type="text"
                       className="!rounded-button w-full border-gray-300 focus:border-custom focus:ring-custom drop-shadow-sm"
-                      placeholder="Student name" onChange={(e)=>{setInputName(e.target.value)}} />
+                      placeholder="Student name" onChange={(e)=>{setInput(prevState => ({...prevState,Name: e.target.value }));}} />
                   </div>
                   
                   <div>
                     <label  className="block text-sm font-medium text-gray-700 mb-1">Payment Date</label>
-                    <input type="date" id="myDate" value={InputDate} onChange={(e) => setInputDate(e.target.value)}  className="!rounded-button w-full border-gray-300 focus:border-custom focus:ring-custom drop-shadow-sm"/>
+                    <input type="date" id="myDate" value={Input.Date} onChange={(e)=>{setInput(prevState => ({...prevState,Date: e.target.value }));}}  className="!rounded-button w-full border-gray-300 focus:border-custom focus:ring-custom drop-shadow-sm"/>
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1" >Amount</label >
                     <input type="text"
                       className="!rounded-button w-full border-gray-300 focus:border-custom focus:ring-custom drop-shadow-sm"
-                      placeholder="Enter amount" onChange={(e)=>{setInputAmount(e.target.value)}}/>
+                      placeholder="Enter amount" onChange={(e)=>{setInput(prevState => ({...prevState,Amount: e.target.value }));}}/>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1" >Current Balance</label>
@@ -82,7 +77,7 @@ const FeeEntryCardDeshboard = (props) => {
                   <div className="mt-6  flex space-x-4">
                     
                   <button type="button" className="!rounded-button w-full bg-custom text-white py-2 px-4 font-medium text-sm"
-                   onClick={()=>{props.click(InputId,InputName,InputCourse,inputAmount,InputDate)}}>
+                   onClick={()=>{props.click(Input.Id,Input.Name,Input.Course,input.Amount,Input.Date)}}>
                     Submit Payment
                   </button>
                   {/* <button type="button" className="!rounded-button  px-4 py-2 border border-gray-300 bg-white text-gray-700 text-sm font-medium" >
@@ -100,7 +95,7 @@ const FeeEntryCardDeshboard = (props) => {
           ))}
         </ul>
       ) : (
-        <p>No data found for the name: {InputName}</p>
+        <p>No data found for the name: {Input.Name}</p>
       )}
     </>
   );
