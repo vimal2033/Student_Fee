@@ -7,23 +7,10 @@ import DashboardFeeEntry from './components/Page1_deshboard/DashboardFeeEntry'
 import TopBtns from './components/TopBtns'
 import AddStudent from './components/Page2_AddStudent/AddStudent';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { useMyContext } from './ContextApi/MyContext';
 function App() {
-  //get data from server
-  // {studata.length > 0 ? (
-  //   <ul>
-  //     {studata.map((item, index) => (
-  //       <li key={index}>{studata[index].NAME}</li>
-  //     ))}
-  //   </ul>
-  // ) : (
-  //   <p>Loading...</p>
-  // )}
-
-  // const filteredData = studata.filter(item => 
-  //   item.NAME.toLowerCase().includes(filterName.toLowerCase())
-  // );
-
-  const [studata,setstudata]=useState([]);
+  
+  const {setstudata}=useMyContext();
   async function get_student_data() {
   const url = "https://script.google.com/macros/s/AKfycbxpzloOf5uY3hrlCiCqFo-OdqwlEDuRzUGYjHQcsJEYhSoa-JPct9voSW8Igjte07a7Kw/exec";
 
@@ -47,6 +34,7 @@ useEffect(()=> {
 
   return (
     <>
+   
     <Router>
    
       <div className="min-h-screen flex">
@@ -66,17 +54,19 @@ useEffect(()=> {
  
               <Routes>
                 {/* //adding deshboard component with free entry as default page */}
-                <Route path="/" element={<DashboardFeeEntry  getdata={studata}/>} />
+                <Route path="/" element={<DashboardFeeEntry />} />
                 {/* //adding add new student page  */}
                 <Route path="/add-student" element={<AddStudent />} />
               </Routes>
-           
+              
           </main>
         </div>
       </div>
 
       </Router>
+     
     </>
+    
   );
 }
 
