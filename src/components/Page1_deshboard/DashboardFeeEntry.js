@@ -31,7 +31,7 @@ const DashboardFeeEntry = (props) => {
               {/* <!-- fee entry card --> */}
               <div className=" md:col-span-2">
                 {/* Fee Entry Card Component */}
-                <FeeEntryCardDeshboard getdata={props.getdata} click={(id,name,course,fee,date)=>{submit_Payment(id,name,course,fee,date)}}/>
+                <FeeEntryCardDeshboard  click={(id,name,course,fee,date)=>{submit_Payment(id,name,course,fee,date)}}/>
               </div>
               {/* <!-- student details card --> */}
               <div className="  md:col-span-1  ">

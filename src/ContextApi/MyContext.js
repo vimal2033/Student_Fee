@@ -10,7 +10,7 @@ export const MyProvider = ({ children }) => {
   const [studata,setstudata]=useState([]);  //state for data of all the students
 
   return (
-    <MyContext.Provider value={{ name, setName, age, setAge }}>
+    <MyContext.Provider value={{ studata,setstudata}}>
       {children}
     </MyContext.Provider>
   );

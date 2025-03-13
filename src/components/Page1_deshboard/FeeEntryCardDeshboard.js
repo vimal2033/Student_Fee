@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { useMyContext } from '../../ContextApi/MyContext';
 const FeeEntryCardDeshboard = (props) => {
   function setToday() {
     // set default date to today
@@ -13,8 +13,8 @@ const FeeEntryCardDeshboard = (props) => {
     const formattedDate = `${year}-${month}-${day}`; // Use YYYY-MM-DD format which is default for input type date
     return formattedDate;
   }
-
-  const StudentData = props.getdata;
+const {studata}=useMyContext();
+  const StudentData =studata;
 
   const [Input,setInput]= useState({Id:"100",Name:"shyam",Date:setToday(),Course:"PGDCA",Amount:"5000"});
 
