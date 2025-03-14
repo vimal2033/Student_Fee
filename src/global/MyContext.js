@@ -13,11 +13,16 @@ export const MyProvider = ({ children }) => {
  
   
   const [StudentData,setStudentData]=useState([]);  //state for data of all the students
-  const [Input,setInput]= useState({Id:"",Name:"",Date:setToday(),Amount:0,Course:"PGDCA",Phone:"",University:"",TotalFee:0,FeePaid:0,Balance:0});
+  const [Input,setInput]= useState({Id:"",Name:"",Date:setToday(),Amount:0,Course:"",Phone:"",University:"",TotalFee:0,FeePaid:0,Balance:0});
   const [dropdownVisible, setDropdownVisible] = useState(false);//name dropdown visibility
   
+ // Filter data based on name
+ const filteredData = StudentData.filter((item) =>
+  item.NAME.toLowerCase().includes(Input.Name.toLowerCase())
+);
+  
   return (
-    <MyContext.Provider value={{ StudentData,setStudentData,Input,setInput,dropdownVisible,setDropdownVisible}}>
+    <MyContext.Provider value={{ StudentData,setStudentData,Input,setInput,dropdownVisible,setDropdownVisible,filteredData}}>
       {children}
     </MyContext.Provider>
   );

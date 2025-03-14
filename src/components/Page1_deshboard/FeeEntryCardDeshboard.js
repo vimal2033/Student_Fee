@@ -1,17 +1,33 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect, useRef} from 'react';
 import { useMyContext } from '../../global/MyContext';
-import {submit_Payment} from '../../global/GlobalFunctions';
+import {submit_Payment,formatCurrency} from '../../global/GlobalFunctions';
 
 const FeeEntryCardDeshboard = (props) => {
  
-const {StudentData,Input,setInput,dropdownVisible,setDropdownVisible}=useMyContext();
+const {Input,setInput,dropdownVisible,setDropdownVisible,filteredData}=useMyContext();
 
 
+const inputRef = useRef(null);
+const dropdownRef = useRef(null);
 
-  // Filter data based on name
-  const filteredData = StudentData.filter((item) =>
-    item.NAME.toLowerCase().includes(Input.Name.toLowerCase())
-  );
+//hide dropdown on cliking outside ofinput box and dropdown
+const handleClickOutside = (event) => {
+  if (
+    inputRef.current && !inputRef.current.contains(event.target) &&
+    dropdownRef.current && !dropdownRef.current.contains(event.target) 
+  ) {
+   setDropdownVisible(false);
+  }
+};
+useEffect(() => {
+  document.addEventListener('mousedown', handleClickOutside);
+  return () => {
+    document.removeEventListener('mousedown', handleClickOutside);
+  };
+  // eslint-disable-next-line
+}, []);
+
+ 
 
 //select first list item on enter
 const handleKeyDown = (e) => {
@@ -39,6 +55,18 @@ const autofill=(index)=>{
                                        }));
                                        
 }}
+const fillblank=()=>{
+                  setInput(prevState => ({ ...prevState, Id: "",
+                    // Name: "", 
+                   Course: "",
+                    
+                    Phone: "",
+                    University: "",
+                    TotalFee: "0",
+                    FeePaid: "0",
+                    Balance:"0"
+                    }));
+}
 
 
 
@@ -75,14 +103,17 @@ const autofill=(index)=>{
   <label className="block text-sm font-medium text-gray-500 mb-1">Student Name</label>
   <input type="text" value={Input.Name} 
     className="!rounded-button w-full border-gray-300 focus:border-custom focus:ring-custom drop-shadow-sm"
-    placeholder="Student name" onChange={(e)=>{setInput(prevState => ({...prevState,Name: e.target.value }));if(e.target.value!=="")setDropdownVisible(true);else setDropdownVisible(false);
+    placeholder="Student name" 
+    onChange={(e)=>{setInput(prevState => ({...prevState,Name: e.target.value }));if(e.target.value!=="")setDropdownVisible(true);else setDropdownVisible(false);fillblank(); 
     setHighlightedIndex(0);}} // Reset highlight to the first item while typing 
-    onKeyDown={(e)=>{handleKeyDown(e)}}
-    onfocusout={()=>{setDropdownVisible(false)}}
+    onKeyDown={(e)=>{handleKeyDown(e); if(e.target.value===""){fillblank();}}}
+    ref={inputRef}
     />
   {/* //dropdown for name input box */}
   {dropdownVisible &&(
-  <div className="!rounded-button border border-gray-300 absolute top-full left-0 w-full bg-white z-50 text-gray-700 mb-1 drop-shadow-md">
+  <div className="!rounded-button border border-gray-300 absolute top-full left-0 w-full bg-white z-50 text-gray-700 mb-1 drop-shadow-md"
+  ref={dropdownRef}
+  >
      {/* Display filtered data search by name */}
       {filteredData.length > 0 ? (
         <ul >
@@ -118,7 +149,7 @@ const autofill=(index)=>{
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1" >Current Balance</label>
                     <label className="!rounded-button w-full border-gray-300 bg-gray-50 text-red-700 font-semibold text-xl p-2" htmlFor="current-balance">
-                        Rs  {!dropdownVisible? Input.Balance : ""}
+                          {!dropdownVisible? formatCurrency(Input.Balance) : formatCurrency(0)}
                     </label>
                     
                     

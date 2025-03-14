@@ -32,3 +32,11 @@ export const setToday=()=>{
   });
 }
 
+// Format numbers as currency in INR
+export const formatCurrency = (amount) => {
+  return new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    minimumFractionDigits: 0,
+  }).format(amount);
+}

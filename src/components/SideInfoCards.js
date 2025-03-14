@@ -1,8 +1,35 @@
 import React from 'react'
+import { useMyContext } from '../global/MyContext'
+import  {formatCurrency}  from '../global/GlobalFunctions'
 
 const SideInfoCards = () => {
+const {StudentData}=useMyContext();
+ 
+const TotalStudentNumber = StudentData.length;
+let TotalFeeReceived = 0;
+if (StudentData.length > 0) {
+  for (let i = 1; i < StudentData.length; i++) {
+    TotalFeeReceived += StudentData[i]['FEE PAID'];
+  }
+} else {
+  TotalFeeReceived = 0;
+}
+let TotalFee = 0;
+if (StudentData.length > 0) {
+  for (let i = 1; i < StudentData.length; i++) {
+    TotalFee += StudentData[i]['TOTAL FEE'];
+  }
+} else {
+  TotalFee = 0;
+}
+
+let BalanceFee=TotalFee-TotalFeeReceived;
+
+
+
   return (
    <>
+   
  {/* <!-- creating cards on top of the page --> */}
  <div className="grid grid-cols-1 gap-6 mb-6 drop-shadow-lg">
  {/* <!-- first card for total students  --> */}
@@ -15,7 +42,7 @@ const SideInfoCards = () => {
        <h3 className="text-sm font-medium text-gray-500">
          Total Students
        </h3>
-       <p className="text-2xl font-semibold text-gray-900">1,234</p>
+       <p className="text-2xl font-semibold text-gray-900">{TotalStudentNumber}</p>
      </div>
    </div>
  </div>
@@ -29,7 +56,7 @@ const SideInfoCards = () => {
        <h3 className="text-sm font-medium text-gray-500">
          Fee Balance Due
        </h3>
-       <p className="text-2xl font-semibold text-gray-900">Rs 45,678</p>
+       <p className="text-2xl font-semibold text-gray-900"> {formatCurrency(BalanceFee)}</p>
      </div>
    </div>
  </div>
@@ -43,7 +70,7 @@ const SideInfoCards = () => {
        <h3 className="text-sm font-medium text-gray-500">
          Total Fee Received
        </h3>
-       <p className="text-2xl font-semibold text-gray-900">Rs 123,456</p>
+       <p className="text-2xl font-semibold text-gray-900"> {formatCurrency(TotalFeeReceived)}</p>
      </div>
    </div>
  </div>
