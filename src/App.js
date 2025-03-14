@@ -10,22 +10,8 @@ import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { useMyContext } from './global/MyContext';
 function App() {
   
-  const {setStudentData}=useMyContext();
-  async function get_student_data() {
-  const url = "https://script.google.com/macros/s/AKfycbxpzloOf5uY3hrlCiCqFo-OdqwlEDuRzUGYjHQcsJEYhSoa-JPct9voSW8Igjte07a7Kw/exec";
-
-  try {
-    const response = await fetch(url, { method: "GET" });
-    const data = await response.json();
-    console.log("GET Response:", data);
-    setStudentData(data[0].data);
-  
-    // document.getElementById("app").textContent = JSON.stringify(data[0].data[0].name);
-  } catch (error) {
-    console.error("Error:", error);
-  }
-}
-
+  const {get_student_data}=useMyContext();
+ 
 
 // now useEffect to call get)student)data function
 useEffect(()=> {

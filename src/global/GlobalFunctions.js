@@ -14,6 +14,8 @@ export const setToday=()=>{
     return formattedDate;
   }
 
+  
+
    //submit payment details (removed async await)
  export const submit_Payment=(id,name,course,fee,date)=>{
   const url = "https://script.google.com/macros/s/AKfycbxpzloOf5uY3hrlCiCqFo-OdqwlEDuRzUGYjHQcsJEYhSoa-JPct9voSW8Igjte07a7Kw/exec";
@@ -40,3 +42,4 @@ export const formatCurrency = (amount) => {
     minimumFractionDigits: 0,
   }).format(amount);
 }
+

@@ -3,7 +3,7 @@ import { useMyContext } from '../../global/MyContext';
 import {submit_Payment,formatCurrency} from '../../global/GlobalFunctions';
 
 const FeeEntryCardDeshboard = (props) => {
- 
+const {get_student_data}=useMyContext();
 const {Input,setInput,dropdownVisible,setDropdownVisible,filteredData}=useMyContext();
 
 
@@ -45,8 +45,7 @@ const autofill=(index)=>{
  if (filteredData.length > 0) {
   setInput(prevState => ({ ...prevState, Id: filteredData[index]['STUDENT ID'],
                                        Name: filteredData[index].NAME, 
-                                      //  Course: filteredData[index].COURSE,
-                                        
+                                        Course: filteredData[index].COURSE,
                                         Phone: filteredData[index]['MOBILE NO'],
                                         University: filteredData[index].UNIVERSITY,
                                         TotalFee: filteredData[index]['TOTAL FEE'],
@@ -142,7 +141,7 @@ const fillblank=()=>{
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1" >Amount</label >
-                    <input type="text"
+                    <input type="text" value={Input.Amount}
                       className="!rounded-button w-full border-gray-300 focus:border-custom focus:ring-custom drop-shadow-sm"
                       placeholder="Enter amount" onChange={(e)=>{setInput(prevState => ({...prevState,Amount: e.target.value }));}}/>
                   </div>
@@ -157,7 +156,13 @@ const fillblank=()=>{
                   <div className="mt-6  flex space-x-4">
                     
                   <button type="button" className="!rounded-button w-full bg-custom text-white py-2 px-4 font-medium text-sm"
-                   onClick={()=>{submit_Payment(Input.Id,Input.Name,Input.Course,Input.Amount,Input.Date)}}>
+                   onClick={()=>{
+                    submit_Payment(Input.Id,Input.Name,Input.Course,Input.Amount,Input.Date);
+                    setTimeout(() => {get_student_data();}, 5000);
+                    fillblank();
+                    setInput(prevState => ({ ...prevState, Name: "",Amount:"" }));
+  
+                   }}>
                     Submit Payment
                   </button>
                   {/* <button type="button" className="!rounded-button  px-4 py-2 border border-gray-300 bg-white text-gray-700 text-sm font-medium" >

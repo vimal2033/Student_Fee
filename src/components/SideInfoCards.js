@@ -12,7 +12,7 @@ if (StudentData.length > 0) {
     TotalFeeReceived += StudentData[i]['FEE PAID'];
   }
 } else {
-  TotalFeeReceived = 0;
+   TotalFeeReceived = 0;
 }
 let TotalFee = 0;
 if (StudentData.length > 0) {
