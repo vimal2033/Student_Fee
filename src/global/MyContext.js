@@ -39,10 +39,20 @@ async function get_student_data() {
   }
 }
 
+//for alert massage
+const [alerts, setAlerts] = useState([]);
+
+const addAlert = (message, color = "bg-green-500") => {
+  setAlerts((prevAlerts) => [...prevAlerts, { message, color }]);
+};
+
+const removeAlert = (index) => {
+  setAlerts((prevAlerts) => prevAlerts.filter((_, i) => i !== index));
+};
 
   return (
     <MyContext.Provider value={{ StudentData,setStudentData,Input,setInput,filteredData,
-                                get_student_data
+                                get_student_data,alerts, addAlert, removeAlert
                               }}>
       {children}
     </MyContext.Provider>

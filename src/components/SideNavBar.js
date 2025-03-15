@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import SideInfoCards from './SideInfoCards'
 
+
 const SideNavBar = () => {
   return (
     <>
@@ -37,6 +38,7 @@ const SideNavBar = () => {
           </a>
           </div>
           <SideInfoCards/>
+          
         </nav>
       </aside>
     </>
