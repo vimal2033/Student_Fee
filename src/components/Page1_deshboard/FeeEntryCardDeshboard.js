@@ -64,7 +64,7 @@ const fillblank=()=>{
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1" >Current Balance</label>
                     <label className="!rounded-button w-full border-gray-300 bg-gray-50 text-red-700 font-semibold text-xl p-2" htmlFor="current-balance">
-                          {!dropdownVisible? formatCurrency(Input.Balance) : formatCurrency(0)}
+                          {!dropdownVisible && (Input.Name.trim() !== "" && Input.Id.trim() !== "") ? formatCurrency(Input.Balance) : formatCurrency(0)}
                     </label>
                     
                     
@@ -74,6 +74,7 @@ const fillblank=()=>{
                   <button type="button" className="!rounded-button w-full bg-custom text-white py-2 px-4 font-medium text-sm"
                    onClick={()=>{
                     submit_Payment(Input.Id,Input.Name,Input.Course,Input.Amount,Input.Date);
+                    setTimeout(() => {get_student_data();}, 500);
                     setTimeout(() => {get_student_data();}, 5000);
                     fillblank();
                     setInput(prevState => ({ ...prevState, Name: "",Amount:"" }));
