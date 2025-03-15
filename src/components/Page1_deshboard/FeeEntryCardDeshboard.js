@@ -1,78 +1,31 @@
-import React,{useState, useEffect, useRef} from 'react';
+import React from 'react';
 import { useMyContext } from '../../global/MyContext';
 import {submit_Payment,formatCurrency} from '../../global/GlobalFunctions';
+import InputSuggestion from './InputSuggestion';
 
 const FeeEntryCardDeshboard = (props) => {
 const {get_student_data}=useMyContext();
-const {Input,setInput,dropdownVisible,setDropdownVisible,filteredData}=useMyContext();
+const {Input,setInput,dropdownVisible}=useMyContext();
 
 
-const inputRef = useRef(null);
-const dropdownRef = useRef(null);
-
-//hide dropdown on cliking outside ofinput box and dropdown
-const handleClickOutside = (event) => {
-  if (
-    inputRef.current && !inputRef.current.contains(event.target) &&
-    dropdownRef.current && !dropdownRef.current.contains(event.target) 
-  ) {
-   setDropdownVisible(false);
-  }
-};
-useEffect(() => {
-  document.addEventListener('mousedown', handleClickOutside);
-  return () => {
-    document.removeEventListener('mousedown', handleClickOutside);
-  };
-  // eslint-disable-next-line
-}, []);
-
- 
-
-//select first list item on enter
-const handleKeyDown = (e) => {
-  
-  if (e.key === 'Enter' && filteredData.length > 0) {
-    e.preventDefault();
-    setDropdownVisible(false);
-    if(Input.Name!==""){ autofill(0);}
-  }
-};
-const [highlightedIndex, setHighlightedIndex] = useState(0);
-
-//autofill input boxes
-const autofill=(index)=>{
- if (filteredData.length > 0) {
-  setInput(prevState => ({ ...prevState, Id: filteredData[index]['STUDENT ID'],
-                                       Name: filteredData[index].NAME, 
-                                        Course: filteredData[index].COURSE,
-                                        Phone: filteredData[index]['MOBILE NO'],
-                                        University: filteredData[index].UNIVERSITY,
-                                        TotalFee: filteredData[index]['TOTAL FEE'],
-                                        FeePaid: filteredData[index]['FEE PAID'],
-                                       Balance:filteredData[index].BALANCE
-                                       }));
-                                       
-}}
 const fillblank=()=>{
-                  setInput(prevState => ({ ...prevState, Id: "",
-                    // Name: "", 
-                   Course: "",
-                    
-                    Phone: "",
-                    University: "",
-                    TotalFee: "0",
-                    FeePaid: "0",
-                    Balance:"0"
-                    }));
+  setInput(prevState => ({ ...prevState, Id: "",
+    // Name: "", 
+   Course: "",
+    
+    Phone: "",
+    University: "",
+    TotalFee: "0",
+    FeePaid: "0",
+    Balance:"0"
+    }));
 }
-
-
 
   
 
   return (
     <>
+    
        {/* <!-- fee entry card --> */}
     
        <div className="bg-white rounded-lg border border-gray-200 p-6 drop-shadow-xl ">
@@ -91,48 +44,11 @@ const fillblank=()=>{
                 {/* <!-- form for fee entry --> */}
               <form>
                 <div className="space-y-4">
-                <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Student ID</label>
-                    <input type="text" value= {!dropdownVisible? Input.Id : ""}
-                      className="!rounded-button w-2/3 border-gray-300 focus:border-custom focus:ring-custom drop-shadow-sm"
-                      placeholder="Enter student ID" onChange={(e)=>{setInput(prevState => ({...prevState,Id: e.target.value }));}}/>
-                  </div>
+
+                  {/* //********input box for student id********* */}
+                  <InputSuggestion label="Student ID" placeholder="Enter Student ID" element="Id" width="w-2/3"/>
                   {/* //********input box for student name********* */}
-                  <div className="relative">
-  <label className="block text-sm font-medium text-gray-500 mb-1">Student Name</label>
-  <input type="text" value={Input.Name} 
-    className="!rounded-button w-full border-gray-300 focus:border-custom focus:ring-custom drop-shadow-sm"
-    placeholder="Student name" 
-    onChange={(e)=>{setInput(prevState => ({...prevState,Name: e.target.value }));if(e.target.value!=="")setDropdownVisible(true);else setDropdownVisible(false);fillblank(); 
-    setHighlightedIndex(0);}} // Reset highlight to the first item while typing 
-    onKeyDown={(e)=>{handleKeyDown(e); if(e.target.value===""){fillblank();}}}
-    ref={inputRef}
-    />
-  {/* //dropdown for name input box */}
-  {dropdownVisible &&(
-  <div className="!rounded-button border border-gray-300 absolute top-full left-0 w-full bg-white z-50 text-gray-700 mb-1 drop-shadow-md"
-  ref={dropdownRef}
-  >
-     {/* Display filtered data search by name */}
-      {filteredData.length > 0 ? (
-        <ul >
-          {filteredData.slice(0, 5).map((item, index) => (
-            <li className={`cursor-pointer p-2 ${index === highlightedIndex ? 'bg-indigo-50' : ''}`} 
-            key={index}
-            onClick={(e)=>{
-            setDropdownVisible(false);
-           autofill(index);
-          } }
-            onMouseEnter={() => setHighlightedIndex(index)}>{item.NAME} - {item['STUDENT ID']}</li>
-          ))}
-        </ul>) : ( <div className="alert-container">
-      <p className="p-2 alert-message">
-      <i className="fas fa-exclamation-circle text-red-600 text-xl"/> No data found for the name: {Input.Name}
-      </p>
-    </div>)}
-  
-</div>)}
-</div>
+                  <InputSuggestion label="Student Name" placeholder="Enter Student Name" element="Name" width="w-full"/>
       
                   <div>
                     <label  className="block text-sm font-medium text-gray-700 mb-1">Payment Date</label>

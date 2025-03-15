@@ -3,7 +3,7 @@ import {useMyContext} from '../../global/MyContext';
 import {formatCurrency} from '../../global/GlobalFunctions';
 const StudentDetailsDeshboard = () => {
 
-const {Input,dropdownVisible,filteredData}=useMyContext();
+const {Input,dropdownVisible}=useMyContext();
 return (
     <>
     {/* <!-- payment history card --> */}
@@ -20,7 +20,7 @@ return (
                     
                     <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
                     <label className="rounded-button w-full border-gray-300 bg-gray-50 text-gray-900 font-semibold text-xl p-2 " htmlFor="Name">
-                    {dropdownVisible === false && Input.Id!==""? Input.Name : (filteredData.length < 1 ? "" :(filteredData[0].Name !== Input.NAME ? "" : "")) }
+                    {!dropdownVisible && (Input.Name.trim() !== "" && Input.Id.trim() !== "") ? Input.Name : ""}
                     </label>
                     
                 </td>

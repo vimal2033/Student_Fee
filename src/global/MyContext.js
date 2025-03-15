@@ -14,13 +14,15 @@ export const MyProvider = ({ children }) => {
   
   const [StudentData,setStudentData]=useState([]);  //state for data of all the students
   const [Input,setInput]= useState({Id:"",Name:"",Date:setToday(),Amount:"",Course:"",Phone:"",University:"",TotalFee:0,FeePaid:0,Balance:0});
-  const [dropdownVisible, setDropdownVisible] = useState(false);//name dropdown visibility
   
- // Filter data based on name
- const filteredData = StudentData.filter((item) =>
-  item.NAME.toLowerCase().includes(Input.Name.toLowerCase())
-);
   
+// Filter data based on name and student ID
+const filteredData = (Input.Name.trim() !== "" || Input.Id.trim() !== "") 
+  ? StudentData.filter((item) =>
+      (Input.Name.trim() !== "" && item.NAME.toLowerCase().includes(Input.Name.toLowerCase())) ||
+      (Input.Id.trim() !== "" && item['STUDENT ID'].toLowerCase().includes(Input.Id.toLowerCase()))
+    )
+  : [];
 //get student data
 async function get_student_data() {
   const url = "https://script.google.com/macros/s/AKfycbxpzloOf5uY3hrlCiCqFo-OdqwlEDuRzUGYjHQcsJEYhSoa-JPct9voSW8Igjte07a7Kw/exec";
@@ -39,7 +41,7 @@ async function get_student_data() {
 
 
   return (
-    <MyContext.Provider value={{ StudentData,setStudentData,Input,setInput,dropdownVisible,setDropdownVisible,filteredData,
+    <MyContext.Provider value={{ StudentData,setStudentData,Input,setInput,filteredData,
                                 get_student_data
                               }}>
       {children}
