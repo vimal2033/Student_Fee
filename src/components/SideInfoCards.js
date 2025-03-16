@@ -50,7 +50,7 @@ let BalanceFee=TotalFee-TotalFeeReceived;
  <div className="bg-white rounded-lg border border-gray-200 p-4">
    <div className="flex items-center">
      <div className="p-3 bg-red-50 rounded-lg">
-       <i className="fas fa-exclamation-circle text-red-600 text-xl"></i>
+       {BalanceFee!==0?<i className="fas fa-exclamation-circle text-red-600 text-xl"></i>:<i className="fas fa-check-circle text-green-600 text-xl"></i>}
      </div>
      <div className="ml-4">
        <h3 className="text-sm font-medium text-gray-500">

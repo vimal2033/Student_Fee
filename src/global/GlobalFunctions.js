@@ -24,7 +24,26 @@ export const setToday=()=>{
     method: "POST",
     mode: "no-cors",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({STUDENT_ID:id, STUDENT_NAME: name, COURSE: course,FEE_RECIVED:fee,DATE:date })
+    body: JSON.stringify({sheetName: "PassBook",STUDENT_ID:id, STUDENT_NAME: name, COURSE: course,FEE_RECIVED:fee,DATE:date })
+
+  })
+  .then(() => {
+    console.log("Data sent successfully!");
+  })
+  .catch(error => {
+    console.error("Error:", error);
+  });
+}
+   //submit student details (removed async await)
+ export const submit_Student_Details=(name,phone,address,course,university)=>{
+  const url = "https://script.google.com/macros/s/AKfycbxpzloOf5uY3hrlCiCqFo-OdqwlEDuRzUGYjHQcsJEYhSoa-JPct9voSW8Igjte07a7Kw/exec";
+
+  fetch(url, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "application/json" },
+    // eslint-disable-next-line
+    body: JSON.stringify({sheetName: "DCA", ['STUDENT ID']: "100", NAME: name,['MOBILE NO']:phone,VILLAGE:`=CONCATENATE("${address}","")`, COURSE: course,UNIVERSITY:university,})
   })
   .then(() => {
     console.log("Data sent successfully!");

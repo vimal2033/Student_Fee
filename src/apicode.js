@@ -20,10 +20,20 @@
         method: "POST",
         mode: "no-cors",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: "raju", number: "99999999" })
+        body: JSON.stringify({
+                              sheetName: "PassBook", // Change to the sheet name where you want to store data
+                              Name: "John Doe",
+                              Amount: 500,
+                              Date: "2025-03-16"
+                            })
       });
       console.log("Data sent successfully!");
     } catch (error) {
       console.error("Error:", error);
     }
   }
+
+ 
+
+  // Get all keys dynamically
+const keys = Object.keys(jsonData);

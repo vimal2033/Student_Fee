@@ -13,6 +13,7 @@ export const MyProvider = ({ children }) => {
  
   
   const [StudentData,setStudentData]=useState([]);  //state for data of all the students
+  const [paymentData,setPaymentData]=useState([]);  //state for data of all the payments
   const [Input,setInput]= useState({Id:"",Name:"",Date:setToday(),Amount:"",Course:"",Phone:"",University:"",TotalFee:0,FeePaid:0,Balance:0});
   
   
@@ -31,7 +32,10 @@ async function get_student_data() {
     const response = await fetch(url, { method: "GET" });
     const data = await response.json();
     console.log("GET Response:", data);
-    setStudentData(data[0].data);
+    setStudentData(data.DCA);
+    setPaymentData(data.PassBook);
+    console.log("Student Data:",StudentData);
+    console.log("Payment Data:",paymentData);
   
     // document.getElementById("app").textContent = JSON.stringify(data[0].data[0].name);
   } catch (error) {
@@ -51,8 +55,9 @@ const removeAlert = (index) => {
 };
 
   return (
-    <MyContext.Provider value={{ StudentData,setStudentData,Input,setInput,filteredData,
-                                get_student_data,alerts, addAlert, removeAlert
+    <MyContext.Provider value={{ StudentData,setStudentData,paymentData,setPaymentData,
+                                get_student_data,Input,setInput,filteredData,
+                                alerts, addAlert, removeAlert
                               }}>
       {children}
     </MyContext.Provider>
