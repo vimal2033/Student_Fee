@@ -1,11 +1,13 @@
 
 import './App.css';
 import { useEffect} from 'react';
-import SideNavBar from './components/SideNavBar'
-import TopHeaderBar from './components/TopHeaderBar'
-import DashboardFeeEntry from './components/Page1_deshboard/DashboardFeeEntry'
-import TopBtns from './components/TopBtns'
+import SideNavBar from './components/SideNavBar';
+import TopHeaderBar from './components/TopHeaderBar';
+import TopBtns from './components/TopBtns';
+import DashboardFeeEntry from './components/Page1_deshboard/DashboardFeeEntry';
 import AddStudent from './components/Page2_AddStudent/AddStudent';
+import PaymentHistory from './components/Page4_PaymentHistory/PaymentHistory';
+import SearchStudent from './components/Page3_SearchStudent/SearchStudent';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { useMyContext } from './global/MyContext';
 function App() {
@@ -44,6 +46,10 @@ useEffect(()=> {
                 <Route path="/" element={<DashboardFeeEntry />} />
                 {/* //adding add new student page  */}
                 <Route path="/add-student" element={<AddStudent />} />
+                {/* //adding Payment history page  */}
+                <Route path="/payment-history" element={<PaymentHistory />} />
+                {/* //adding Payment history page  */}
+                <Route path="/search-student" element={<SearchStudent />} />
               </Routes>
               
           </main>

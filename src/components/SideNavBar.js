@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import SideInfoCards from './SideInfoCards'
 
 
@@ -16,27 +16,43 @@ const SideNavBar = () => {
         <nav className="mt-6 px-4 drop-shadow-md">
 
         <div className="bg-white rounded-lg border border-gray-200 mb-10">
-          <Link to="/"  className="flex items-center px-4 py-3 text-sm font-medium text-custom rounded-lg bg-indigo-50">
+          {/* <NavLink to="/" exact className={({ isActive }) => 
+                `flex items-center px-4 py-3 text-sm font-medium rounded-lg hover:bg-indigo-50 ${isActive ? 'text-custom bg-indigo-100' : 'text-gray-600'}`
+              }  >
             <i className="fas fa-chart-line w-5 h-5 mr-3"></i>
+           
             Dashboard
-          </Link>
-          <Link to="/" className="flex items-center px-4 py-3 text-sm font-medium text-gray-600 rounded-lg hover:bg-indigo-50">
+          </NavLink> */}
+
+          <NavLink to="/" exact className={({ isActive }) => 
+                `flex items-center px-4 py-3 text-sm font-medium rounded-lg hover:bg-indigo-50 ${isActive ? 'text-custom bg-indigo-100' : 'text-gray-600'}`
+              }>
             <i className="fas fa-money-bill w-5 h-5 mr-3"></i>
             Payment
-          </Link>
-          <Link to="/add-student" className="flex items-center px-4 py-3 text-sm font-medium text-gray-600 rounded-lg hover:bg-indigo-50">
+          </NavLink>
+
+          <NavLink to="/add-student" exact className={({ isActive }) => 
+                `flex items-center px-4 py-3 text-sm font-medium rounded-lg hover:bg-indigo-50 ${isActive ? 'text-custom bg-indigo-100' : 'text-gray-600'}`
+              }>
             <i className="fas fa-user-graduate w-5 h-5 mr-3"></i>
             New Students
-          </Link>
-          <a href="/" className="flex items-center px-4 py-3 text-sm font-medium text-gray-600 rounded-lg hover:bg-indigo-50">
+          </NavLink>
+
+          <NavLink to="/search-student" exact className={({ isActive }) => 
+                `flex items-center px-4 py-3 text-sm font-medium rounded-lg hover:bg-indigo-50 ${isActive ? 'text-custom bg-indigo-100' : 'text-gray-600'}`
+              }>
           <i className="fas fa-search mr-2"></i>
             Search Students
-          </a>
-          <a href="/" className="flex items-center px-4 py-3 text-sm font-medium text-gray-600 rounded-lg hover:bg-indigo-50">
+          </NavLink>
+
+          <NavLink to="/payment-history"  exact className={({ isActive }) => 
+                `flex items-center px-4 py-3 text-sm font-medium rounded-lg hover:bg-indigo-50 ${isActive ? 'text-custom bg-indigo-100' : 'text-gray-600'}`
+              }>
             <i className="fas fa-file-alt w-5 h-5 mr-3"></i>
            Payment HIstory
-          </a>
+          </NavLink>
           </div>
+          
           <SideInfoCards/>
           
         </nav>

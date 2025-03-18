@@ -34,13 +34,7 @@ const AddStudent = () => {
       submit_Student_Details(name, phone, address, course, university);
       console.log("Data submitted successfully");
 
-      // Clear the form fields
-      document.querySelector('input[type="text"]').value = "";
-      document.querySelector('select').value = "";
-      document.querySelectorAll('select')[1].value = "";
-      setPhone("");
-      document.querySelector('textarea').value = "";
-
+      fill_blank_student();
       addAlert("Success! Your changes have been saved.", "bg-green-500");
       setTimeout(() => {get_student_data();}, 500);
       setTimeout(() => {get_student_data();}, 5000);
@@ -51,6 +45,14 @@ const AddStudent = () => {
       setTimeout(() => { removeAlert(0); }, 3000);
     }
   };
+  const fill_blank_student=()=>{
+      // Clear the add student form fields
+      document.querySelector('input[type="text"]').value = "";
+      document.querySelector('select').value = "";
+      document.querySelectorAll('select')[1].value = "";
+      setPhone("");
+      document.querySelector('textarea').value = "";
+  }
 
   return (
     <>
@@ -108,10 +110,12 @@ const AddStudent = () => {
                 <i className="fas fa-home mr-2"></i>
                 Home
               </Link>
-              <button type="button" className="!rounded-button px-4 py-2 border border-gray-300 bg-white text-gray-700 text-sm font-medium drop-shadow-sm">
+              <button type="button" className="!rounded-button px-4 py-2 border border-gray-300 bg-white text-gray-700 text-sm font-medium drop-shadow-sm"
+              onClick={()=>{fill_blank_student();}}>
                 Clear
               </button>
-              <button type="submit" className="!rounded-button px-4 py-2 bg-custom text-white text-sm font-medium drop-shadow-sm" onClick={handleAddStudent}>
+              <button type="submit" className="!rounded-button px-4 py-2 bg-custom text-white text-sm font-medium drop-shadow-sm" 
+              onClick={()=>{handleAddStudent();}}>
                 Add Student
               </button>
             </div>
