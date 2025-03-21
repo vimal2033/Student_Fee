@@ -24,9 +24,11 @@ const filteredData = (Input.Name.trim() !== "" || Input.Id.trim() !== "")
       (Input.Id.trim() !== "" && item['STUDENT ID'].toLowerCase().includes(Input.Id.toLowerCase()))
     )
   : [];
+
+  
 //get student data
 async function get_student_data() {
-  const url = "https://script.google.com/macros/s/AKfycbxpzloOf5uY3hrlCiCqFo-OdqwlEDuRzUGYjHQcsJEYhSoa-JPct9voSW8Igjte07a7Kw/exec";
+  const url = process.env.REACT_APP_API_URL;
 
   try {
     const response = await fetch(url, { method: "GET" });
@@ -54,10 +56,14 @@ const removeAlert = (index) => {
   setAlerts((prevAlerts) => prevAlerts.filter((_, i) => i !== index));
 };
 
+// for option heighlighting
+const [highlightedIndex, setHighlightedIndex] = useState(0);
+
   return (
     <MyContext.Provider value={{ StudentData,setStudentData,paymentData,setPaymentData,
                                 get_student_data,Input,setInput,filteredData,
-                                alerts, addAlert, removeAlert
+                                alerts, addAlert, removeAlert,
+                                highlightedIndex, setHighlightedIndex
                               }}>
       {children}
     </MyContext.Provider>

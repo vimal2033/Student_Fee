@@ -18,7 +18,7 @@ export const setToday=()=>{
 
    //submit payment details (removed async await)
  export const submit_Payment=(id,name,course,fee,date)=>{
-  const url = "https://script.google.com/macros/s/AKfycbxpzloOf5uY3hrlCiCqFo-OdqwlEDuRzUGYjHQcsJEYhSoa-JPct9voSW8Igjte07a7Kw/exec";
+  const url = process.env.REACT_APP_API_URL;
 
   fetch(url, {
     method: "POST",
